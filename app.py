@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import requests
 
-st.title('KneeSensor 六軸原始數據監測')
+st.title('KneeSensor 六軸數據監測')
 
 # ==========================================
 # 1. ThingSpeak 連線設定 (⚠️請換成你的資料)
@@ -41,18 +41,18 @@ def get_raw_data():
 df = get_raw_data()
 
 if not df.empty:
-    st.success("✅ 成功連線至 ThingSpeak，取得最新數據！")
+    st.success("成功連線至 ThingSpeak，取得最新數據！")
     
     # 繪製 加速度計 (Accel) 折線圖
-    st.subheader('🏃 加速度變化 (ax, ay, az)')
+    st.subheader('加速度變化 (ax, ay, az)')
     st.line_chart(df.set_index('時間')[['ax', 'ay', 'az']])
     
     # 繪製 陀螺儀 (Gyro) 折線圖
-    st.subheader('🌪️ 陀螺儀變化 (gx, gy, gz)')
+    st.subheader('陀螺儀變化 (gx, gy, gz)')
     st.line_chart(df.set_index('時間')[['gx', 'gy', 'gz']])
     
     # 在最下方顯示原始數據表
-    st.subheader('📋 原始數據報表')
+    st.subheader('原始數據報表')
     st.dataframe(df)
 else:
     st.info("🔄 正在等待 ThingSpeak 數據... (如果一直沒畫面，請確認 ESP32 有在發送數據)")
